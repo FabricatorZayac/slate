@@ -1,0 +1,6 @@
+target
+obj
+compile_commands.json
+.cache
+test/bin
+test/obj
