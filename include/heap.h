@@ -3,6 +3,6 @@
 
 #include "allocator.h"
 
-const extern allocator_t malloc_allocator;
+extern const allocator_t malloc_allocator;
 
 #endif // !SLATE_HEAP_H_

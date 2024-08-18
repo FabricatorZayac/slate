@@ -2,13 +2,19 @@
 #define SLATE_VEC_H_
 
 #include "allocator.h"
+#include "io.h"
 #include "slice.h"
 
-const extern struct Vec_mt {
+extern const struct Vec_mt {
     void *(*init)(size_t typesize, allocator_t allocator);
     void (*deinit)(void *self);
     allocator_t (*get_allocator)(void *self);
     void (*ensure_capacity)(void *self, size_t new_capacity);
+    void (*expand_to_cap)(void *self);
+    void (*append_slice)(void *self, void *items);
+    void *(*to_owned_slice)(void *self);
+
+    writer_t (*writer)(void *self);
 } Vec;
 
 /// Initializes an empty vector and returns a slice into it with an additional
@@ -33,6 +39,5 @@ const extern struct Vec_mt {
     (*VEC)[len(VEC)] = ITEM;                \
     len(VEC) += 1;                          \
 } while(0)
-
 
 #endif // !SLATE_VEC_H_

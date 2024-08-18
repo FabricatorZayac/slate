@@ -35,7 +35,7 @@ static bool resize(allocator_t self, void *buf, size_t new_n) {
     }
     return Allocator.rawResize(self, buf, new_n * elem_size(buf));
 }
-static void *realloc(allocator_t self, void *buf, size_t new_n) {
+static void *_realloc(allocator_t self, void *buf, size_t new_n) {
     if (Allocator.resize(self, buf, new_n)) {
         return buf;
     }
@@ -46,7 +46,7 @@ static void *realloc(allocator_t self, void *buf, size_t new_n) {
 
     return new_mem;
 }
-static void free(allocator_t self, void *buf) {
+static void _free(allocator_t self, void *buf) {
     Allocator.rawFree(self, (array_header_t *)buf - 1);
 }
 
@@ -60,6 +60,6 @@ const struct allocator_mt Allocator = {
 
     .alloc = alloc,
     .resize = resize,
-    .realloc = realloc,
-    .free = free,
+    .realloc = _realloc,
+    .free = _free,
 };

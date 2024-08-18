@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-/// buf is an array referece
+/// buf is an array object on the heap
 typedef struct {
     void *ptr;
     const struct allocator_vtable {
@@ -14,7 +14,7 @@ typedef struct {
     } *vtable;
 } allocator_t;
 
-const extern struct allocator_mt {
+extern const struct allocator_mt {
     char *(*rawAlloc)(allocator_t, size_t len);
     bool (*rawResize)(allocator_t, void *buf, size_t new_len);
     void (*rawFree)(allocator_t, void *buf);

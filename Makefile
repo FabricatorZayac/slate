@@ -4,7 +4,7 @@
 # @file
 # @version 0.1
 
-CC           := clang
+CC           := gcc
 CC_STANDARD  := c23
 RM           := rm -f
 RMDIR        := rm -rf

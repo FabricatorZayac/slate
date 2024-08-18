@@ -15,10 +15,6 @@ static void _free(void *ctx, void *buf) {
 static bool resize(void *ctx, void *buf, size_t new_len) {
     (void)ctx;
     if (new_len == len(buf)) return true;
-    if (new_len < len(buf)) {
-        len(buf) = new_len;
-        return true;
-    }
     return false;
 }
 

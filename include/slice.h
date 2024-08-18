@@ -35,18 +35,7 @@ typedef struct {
 
 // Naming subject to change. Might even somehow unify the 2 slice macros
 // if I ever decide to sacrifice my undying soul in the name the Dark Gods
-#define TOSLICE(ARR)                 \
-(void *)&(struct {                   \
-    array_header_t header;           \
-    void *data;                      \
-}) {                                 \
-    .header = {                      \
-        .elem_size = elem_size(ARR), \
-        .len = len(ARR),             \
-    },                               \
-    .data = ARR,                     \
-}.data
-
+#define TOSLICE(ARR) SLICE(ARR, 0, len(ARR))
 
 ///
 /// Dereferences `size_t len` field of array-lke object
@@ -57,5 +46,18 @@ typedef struct {
 #define len(arr_like) (*((size_t *)arr_like - 1))
 
 #define elem_size(arr_like) (*((size_t *)arr_like - 2))
+
+/// String slice literal
+#define str(cstr)                   \
+&(struct {                          \
+    array_header_t header;          \
+    char *data;                     \
+}) {                                \
+    .header = {                     \
+        .elem_size = sizeof(char),  \
+        .len = sizeof(cstr) - 1,    \
+    },                              \
+    .data = cstr                    \
+}.data
 
 #endif // !SLATE_SLICE_H_
